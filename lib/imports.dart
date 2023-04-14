@@ -5,6 +5,6 @@ export 'package:weather_app/week_page/week_page.dart';
 export 'package:weather_app/nav_bar.dart';
 export 'package:flutter/material.dart';
 export 'package:geolocator/geolocator.dart';
+import 'package:geolocator/geolocator.dart';
 
-double longitude=0;
-double latitude=0;
+late final Future<Position>? futurePosition;

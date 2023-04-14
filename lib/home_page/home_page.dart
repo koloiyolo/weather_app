@@ -10,29 +10,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final now = DateTime.now();
 
-  Future<Position> getUserPosition() async {
-    var _permissionGranted = await Geolocator.checkPermission();
-
-    if (_permissionGranted != LocationPermission.always ||
-        _permissionGranted != LocationPermission.whileInUse) {
-      await Geolocator.requestPermission();
-    }
-
-    final position = await Geolocator.getCurrentPosition();
-    return position;
-  }
-
-  late final Future<Position> futureGeo;
-  @override
-  void initState() {
-    futureGeo = getUserPosition();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: futureGeo,
+        future: futurePosition,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(

@@ -9,11 +9,29 @@ class NavBar extends StatefulWidget {
 
 class _NavBarState extends State<NavBar> {
   bool farenheit = false;
-  int index=0;
+  int index = 0;
   Widget page = Placeholder();
   String title = '';
 
-  bool canStart = false;
+    Future<Position> getUserPosition() async {
+    var _permissionGranted = await Geolocator.checkPermission();
+
+    if (_permissionGranted != LocationPermission.always ||
+        _permissionGranted != LocationPermission.whileInUse) {
+      await Geolocator.requestPermission();
+    }
+
+    final position = await Geolocator.getCurrentPosition();
+    return position;
+  }
+  @override
+  void initState() {
+    futurePosition = getUserPosition();
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     switch (index) {
@@ -42,7 +60,7 @@ class _NavBarState extends State<NavBar> {
             )
           ],
         ),
-        body:Column(
+        body: Column(
           children: [
             Expanded(child: page),
             NavigationBar(
