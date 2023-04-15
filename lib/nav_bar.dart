@@ -1,3 +1,5 @@
+import 'package:weather_app/private/private.dart';
+import 'package:http/http.dart' as http;
 import 'imports.dart';
 
 class NavBar extends StatefulWidget {
@@ -13,7 +15,7 @@ class _NavBarState extends State<NavBar> {
   Widget page = Placeholder();
   String title = '';
 
-    Future<Position> getUserPosition() async {
+    Future<Map<String, dynamic>> getWeather() async {
     var _permissionGranted = await Geolocator.checkPermission();
 
     if (_permissionGranted != LocationPermission.always ||
@@ -22,11 +24,19 @@ class _NavBarState extends State<NavBar> {
     }
 
     final position = await Geolocator.getCurrentPosition();
-    return position;
+    
+    final url = 'https://api.openweathermap.org/data/3.0/onecall?lat=${position.latitude}&lon=${position.longitude}.04&appid=key';
+    final response = await http.get(Uri.parse(url));
+    if(response.statusCode==200){
+      return jsonDecode(response.body);
+    }else{
+      throw Exception(response.statusCode);
+    }
+
   }
   @override
   void initState() {
-    futurePosition = getUserPosition();
+    futureWeather = getWeather();
     super.initState();
   }
 
