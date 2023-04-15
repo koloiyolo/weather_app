@@ -2,20 +2,19 @@ import 'package:weather_app/private/private.dart';
 import 'package:http/http.dart' as http;
 import 'imports.dart';
 
-class NavBar extends StatefulWidget {
-  const NavBar({super.key});
+class PageScaffold extends StatefulWidget {
+  const PageScaffold({super.key});
 
   @override
-  State<NavBar> createState() => _NavBarState();
+  State<PageScaffold> createState() => _PageScaffoldState();
 }
 
-class _NavBarState extends State<NavBar> {
-  bool farenheit = false;
+class _PageScaffoldState extends State<PageScaffold> {
   int index = 0;
   Widget page = Placeholder();
   String title = '';
 
-    Future<Map<String, dynamic>> getWeather() async {
+  Future<Map<String, dynamic>> getWeather() async {
     var _permissionGranted = await Geolocator.checkPermission();
 
     if (_permissionGranted != LocationPermission.always ||
@@ -24,36 +23,27 @@ class _NavBarState extends State<NavBar> {
     }
 
     final position = await Geolocator.getCurrentPosition();
-    
-    final url = 'https://api.openweathermap.org/data/3.0/onecall?lat=${position.latitude}&lon=${position.longitude}&appid=$key';
+    pos = position;
+
+    final url =
+        'https://api.openweathermap.org/data/3.0/onecall?lat=${position.latitude}&lon=${position.longitude}&units=metric&appid=$key';
     final response = await http.get(Uri.parse(url));
-    if(response.statusCode==200){
+    if (response.statusCode == 200) {
+
       return jsonDecode(response.body);
-    }else{
+    } else {
       throw Exception(response.statusCode);
     }
-
   }
+
   @override
   void initState() {
     futureWeather = getWeather();
     super.initState();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    switch (index) {
-      case 0:
-        page = HomePage();
-        title = 'Today\'s weather';
-        break;
-      case 1:
-        page = const WeekPage();
-        title = 'Week weather';
-        break;
-    }
     return Scaffold(
         appBar: AppBar(
           title: Text(title),
@@ -70,22 +60,16 @@ class _NavBarState extends State<NavBar> {
             )
           ],
         ),
-        body: Column(
-          children: [
-            Expanded(child: page),
-            NavigationBar(
-              destinations: const [
-                NavigationDestination(icon: Icon(Icons.home), label: ''),
-                NavigationDestination(icon: Icon(Icons.list), label: '')
-              ],
-              selectedIndex: index,
-              onDestinationSelected: (value) {
-                setState(() {
-                  index = value;
-                });
-              },
-            )
-          ],
-        ));
+        body: FutureBuilder(
+              future: futureWeather,
+              builder: ((context, snapshot) {
+                if(snapshot.hasData){
+                  return WeatherTile(data: snapshot.data!);
+                }
+                  return const Center(child: CircularProgressIndicator());
+                
+            }))
+          
+        );
   }
 }

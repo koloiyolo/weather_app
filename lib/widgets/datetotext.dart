@@ -1,23 +1,25 @@
 import 'package:weather_app/imports.dart';
 
-class DateToMonth extends StatelessWidget {
-  const DateToMonth({
+class BuildDate extends StatelessWidget {
+  final DateTime datetime;
+  const BuildDate({
+    required this.datetime,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
-    return BuildText(text: (DateTime.now().month==1) ? '${DateTime.now().day} January ${DateTime.now().year}'
-                            : (DateTime.now().month==2) ? '${DateTime.now().day} February ${DateTime.now().year}'
-                            : (DateTime.now().month==3) ? '${DateTime.now().day} March ${DateTime.now().year}'
-                            : (DateTime.now().month==4) ? '${DateTime.now().day} April ${DateTime.now().year}'
-                            : (DateTime.now().month==5) ? '${DateTime.now().day} May ${DateTime.now().year}'
-                            : (DateTime.now().month==6) ? '${DateTime.now().day} June ${DateTime.now().year}'
-                            : (DateTime.now().month==7) ? '${DateTime.now().day} July ${DateTime.now().year}'
-                            : (DateTime.now().month==8) ? '${DateTime.now().day} August ${DateTime.now().year}'
-                            : (DateTime.now().month==9) ? '${DateTime.now().day} September ${DateTime.now().year}'
-                            : (DateTime.now().month==10) ? '${DateTime.now().day} October ${DateTime.now().year}'
-                            : (DateTime.now().month==11) ? '${DateTime.now().day} November ${DateTime.now().year}'
-                            :'${DateTime.now().day} December ${DateTime.now().year}', size: 2);
+    return BuildText(text: (datetime.month==1) ? '${datetime.day} January ${datetime.year}'
+                            : (datetime.month==2) ? '${datetime.day} February ${datetime.year}'
+                            : (datetime.month==3) ? '${datetime.day} March ${datetime.year}'
+                            : (datetime.month==4) ? '${datetime.day} April ${datetime.year}'
+                            : (datetime.month==5) ? '${datetime.day} May ${datetime.year}'
+                            : (datetime.month==6) ? '${datetime.day} June ${datetime.year}'
+                            : (datetime.month==7) ? '${datetime.day} July ${datetime.year}'
+                            : (datetime.month==8) ? '${datetime.day} August ${datetime.year}'
+                            : (datetime.month==9) ? '${datetime.day} September ${datetime.year}'
+                            : (datetime.month==10) ? '${datetime.day} October ${datetime.year}'
+                            : (datetime.month==11) ? '${datetime.day} November ${datetime.year}'
+                            :'${datetime.day} December ${datetime.year}', size: 2);
   }
 }

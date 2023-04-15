@@ -3,27 +3,27 @@ import 'package:weather_app/imports.dart';
 class BuildDay extends StatelessWidget {
   const BuildDay({
     super.key,
-    required this.now,
+    required this.datetime,
   });
 
-  final DateTime now;
+  final DateTime datetime;
 
   @override
   Widget build(BuildContext context) {
     return BuildText(
-        text: (now.weekday == 1)
+        text: (datetime.weekday == 1)
             ? 'Monday'
-            : (now.weekday == 2)
+            : (datetime.weekday == 2)
                 ? 'Tuesday'
-                : (now.weekday == 3)
+                : (datetime.weekday == 3)
                     ? 'Wednesday'
-                    : (now.weekday == 4)
+                    : (datetime.weekday == 4)
                         ? 'Thursday'
-                        : (now.weekday == 5)
+                        : (datetime.weekday == 5)
                             ? 'Friday'
-                            : (now.weekday == 6)
+                            : (datetime.weekday == 6)
                                 ? 'Saturday'
                                 : 'Sunday',
-        size: 2.5);
+        size: 3);
   }
 }
