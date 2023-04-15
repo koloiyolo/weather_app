@@ -16,7 +16,7 @@ class BuildText extends StatelessWidget {
       padding: const EdgeInsets.all(8.0),
       child: Text(
         text,
-        style: TextStyle(fontSize: 15 * size),
+        style: TextStyle(fontSize: 13 * size),
       ),
     ));
   }

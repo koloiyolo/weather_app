@@ -2,7 +2,9 @@ import 'package:weather_app/imports.dart';
 
 class BuildDate extends StatelessWidget {
   final DateTime datetime;
-  const BuildDate({
+  late double size;
+  BuildDate({
+    required this.size,
     required this.datetime,
     super.key,
   });
@@ -20,6 +22,6 @@ class BuildDate extends StatelessWidget {
                             : (datetime.month==9) ? '${datetime.day} September ${datetime.year}'
                             : (datetime.month==10) ? '${datetime.day} October ${datetime.year}'
                             : (datetime.month==11) ? '${datetime.day} November ${datetime.year}'
-                            :'${datetime.day} December ${datetime.year}', size: 2);
+                            :'${datetime.day} December ${datetime.year}', size: size);
   }
 }

@@ -1,9 +1,12 @@
 import 'package:weather_app/imports.dart';
 
 class BuildDay extends StatelessWidget {
-  const BuildDay({
+  double size;
+
+  BuildDay({
     super.key,
     required this.datetime,
+    required this.size
   });
 
   final DateTime datetime;
@@ -24,6 +27,6 @@ class BuildDay extends StatelessWidget {
                             : (datetime.weekday == 6)
                                 ? 'Saturday'
                                 : 'Sunday',
-        size: 3);
+        size: size);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:weather_app/private/private.dart';
 import 'package:http/http.dart' as http;
+import 'elements/navbar.dart';
 import 'imports.dart';
 
 class PageScaffold extends StatefulWidget {
@@ -44,32 +45,18 @@ class _PageScaffoldState extends State<PageScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
-          titleTextStyle: const TextStyle(
-            fontSize: 23,
-          ),
-          actions: [
-            ElevatedButton(
-              onPressed: () {
-                farenheit = !farenheit;
-                setState(() {});
-              },
-              child: farenheit ? const Text('°F') : const Text('°C'),
-            )
-          ],
-        ),
-        body: FutureBuilder(
+    return FutureBuilder(
               future: futureWeather,
               builder: ((context, snapshot) {
                 if(snapshot.hasData){
-                  return WeatherTile(data: snapshot.data!);
+                  return NavBar(data: snapshot.data);
                 }
-                  return const Center(child: CircularProgressIndicator());
+                  return const Scaffold(
+                    body:Center(child: CircularProgressIndicator())
+                  );
                 
-            }))
+            }));
           
-        );
+        
   }
 }
