@@ -25,7 +25,7 @@ class _NavBarState extends State<NavBar> {
 
     final position = await Geolocator.getCurrentPosition();
     
-    final url = 'https://api.openweathermap.org/data/3.0/onecall?lat=${position.latitude}&lon=${position.longitude}.04&appid=key';
+    final url = 'https://api.openweathermap.org/data/3.0/onecall?lat=${position.latitude}&lon=${position.longitude}&appid=$key';
     final response = await http.get(Uri.parse(url));
     if(response.statusCode==200){
       return jsonDecode(response.body);

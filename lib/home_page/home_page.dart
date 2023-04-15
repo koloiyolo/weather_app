@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
                     const SizedBox(height: 8),
                     const DateToMonth(),
                     const SizedBox(height: 8),
-                    BuildText(text: snapshot.data!['current']['sunset'], size: 2)
+                    BuildText(text: snapshot.data!['current']['sunset'].toString(), size: 2)
               ],
             ));
           } else {
